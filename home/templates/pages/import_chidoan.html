@@ -1,0 +1,32 @@
+{% extends "pages/base.html" %}
+
+{% block content %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="import-form">
+        <h2>Import File Excel</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="import-text">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </div>
+            
+            <div class="button-import-cancle">
+                <div>
+                    <button type="submit" class="btn btn-success">Import</button>
+                </div>
+                <div>
+                    {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
+                    <a href="/chidoan"><button type="button" class="btn btn-cancel">Hủy</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

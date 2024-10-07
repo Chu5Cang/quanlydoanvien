@@ -1,0 +1,28 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa thông tin Đoàn Khoa{% endblock %}
+
+{% block content %}
+    <h2 style="padding: 20px;">SỬA THÔNG TIN ĐOÀN KHOA</h2>
+    <div class="edit-form">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="maDK">Mã Đoàn Khoa: </label>
+                {{ form.maDK }}
+                <label for="tenDK">Tên Đoàn Khoa: </label>
+                {{ form.tenDK }}
+            </div>
+            <div class="button-edit-form">
+                <div>
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                </div>
+                <div>
+                    {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
+                    <a href="/doankhoa"><button type="button" class="btn btn-cancel">Hủy</button></a>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Chi Đoàn{% endblock  %}
+
+{% block content %}
+    <h1 class="list-header-name">DANH SÁCH CHI ĐOÀN</h1>
+    {% comment %} chuc nang them {% endcomment %}
+    <div class="button-add">
+        <button id="show-addform"><i class="ti-plus"></i> Thêm mới</button>
+    </div>
+    
+    <!-- Modal thêm Chi Đoàn -->
+    <div id="addform" class="modal">
+        <div class="modal-content-chidoan">
+            <!-- Nút đóng modal -->
+            <span class="close">&times;</span>
+            <h2>Thêm Chi Đoàn</h2>
+            <form method="POST" action="{% url 'add_chidoan' %}">
+                {% csrf_token %}
+                <!-- Mã Chi Đoàn -->
+                <label for="maCD">Mã Chi Đoàn:</label><br>
+                <input type="text" id="maCD" name="maCD" placeholder="Nhập mã Chi Đoàn" required><br><br>
+            
+                <!-- Tên Chi Đoàn -->
+                <label for="tenCD">Tên Chi Đoàn:</label><br>
+                <input type="text" id="tenCD" name="tenCD" placeholder="Nhập tên Chi Đoàn" required><br><br>
+            
+                <!-- Đoàn Khoa -->
+                <label for="maDK">Đoàn Khoa:</label><br>
+                <select id="maDK" name="maDK" required>
+                    <option value="">Chọn Đoàn Khoa</option>
+                    {% for doankhoa in doankhoas %}
+                        <option value="{{ doankhoa.maDK }}">{{ doankhoa.maDK }}</option>
+                    {% endfor %}
+                </select>
+                
+                <!-- Nút thêm -->
+                <div class="button-add-in-form">
+                    <button type="submit" style="margin-top: 30px; padding: 5px 15px;">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
+
+    {% comment %} ----------------------------------------------------- {% endcomment %}
+    <br>
+    <br>
+    {% comment %} tao khung gid cho 2 chuc nang tim kiem va nhap xuat file excel {% endcomment %}
+    <div class="gid-form-search-im-ex">
+    {% comment %} chuc nang tim kiem {% endcomment %}
+        <div>
+            <h4 style="padding: 0px 20px;">Tìm Kiếm theo: Mã Chi Đoàn hoặc tên Chi Đoàn: </h4>
+            <div class="search-container">
+                <form method="GET" action="{% url 'chidoan' %}">
+                    <input class="thanh-tim-kiem" type="text" name="search" placeholder="Nhập từ khóa để tìm kiếm...">
+                    <button class="search-button" type="submit">Tìm kiếm</button>
+                </form>
+            </div>
+        </div>
+    {% comment %} ----------------------------------------------------- {% endcomment %}
+    {% comment %} chức năng import và export {% endcomment %}
+        <div class="ex-im-comtainer">
+            <p style="padding: 5px 7px;">Nhập/Xuất file excel: </p>
+            <a href="{% url 'export_chidoan' %}" class="ti-export"></a>
+            <a href="{% url 'import_chidoan' %}" class="ti-import"></a>
+        </div>
+    {% comment %} ----------------------------------------------------- {% endcomment %}
+    </div>
+    <br>
+    {% comment %} Hien thi thong tin bảng doan khoa {% endcomment %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">STT</th>
+                    <th width="15%">Mã Chi Đoàn</th>
+                    <th width="25%">Tên Chi Đoàn</th>
+                    <th width="8%">Đoàn Khoa</th>
+                    <th width="5%">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chidoan in chidoans %}
+                <tr>
+                    {% comment %} forloop dùng để đánh số thứ tự {% endcomment %}
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ chidoan.maCD }}</td>
+                    <td>{{ chidoan.tenCD }}</td>
+                    <td>{{ chidoan.maDK }}</td>
+                    <td>
+                        <div style="display: grid; grid-template-columns: auto auto;">
+                            <div>
+                               <!-- Nút Sửa Dang test-->
+                                <a href="{% url 'edit_chidoan' chidoan.maCD %}">
+                                <button class="btn btn-primary"><p class="ti-write"></p></button>
+                                </a> 
+                            </div>
+                            <div>
+                                 <!-- Nút Xóa -->
+                                <button class="btn btn-danger" onclick="confirmDeletedChiDoan('{{ chidoan.maCD }}')">
+                                    <p class="ti-trash"></p>
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% comment %} ----------------------------------------------------- {% endcomment %}
+    {% comment %} Modal xác nhận xóa chi đoàn {% endcomment %}
+    <div id="confirmDeleteModalChiDoan" class="modal">
+        <div class="confirm-box">
+            <h3>Bạn có chắc chắn muốn xóa Chi Đoàn không?</h3>
+            <p>Hành động này sẽ không thể hoàn tác.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Xác nhận</button>
+                <button type="button" class="btn btn-cancel" onclick="closeModalChiDoan('confirmDeleteModalChiDoan')">Hủy</button>
+            </form>
+        </div>
+    </div>
+    {% comment %} ----------------------------------------------------- {% endcomment %}
+{% endblock  %}

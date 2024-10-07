@@ -1,0 +1,345 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* font-family: ; */
+}
+/* BASE.html */
+/* phan header */
+.header{
+    background-color: #3162A5;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px; /* Tạo chiều cao mặt định cho header */
+}
+.header-name{
+    font-size: 10px;
+    color: white;
+    margin: 16px 5px;
+}
+
+/* phan nav va container */
+.wrapper {
+    display: flex;
+    margin-top: 80px;
+    height: calc(100vh - 80px); /* Chiều cao trừ đi chiều cao của header */
+}
+/* Phần menu */
+.nav-slidebar{
+    width: 250px; /* Chiều rộng cố định của nav */
+    background-color: #000000de; /* Màu nền của nav */
+}
+.nav-slidebar h3{
+    background-color: #000000;
+    font-size: 17px;
+}
+.slidebar-name{
+    padding: 10px 15px;
+    color: #ffffffbd;
+}
+.user-name{
+    padding: 10px 15px;
+    text-align: center;
+    color: white;
+}
+.nav-slidebar ul{
+    line-height: 1.5;
+}
+.nav-slidebar li{
+    list-style: none;
+    padding: 10px 0;
+    padding-left: 20px;
+}
+.nav-slidebar li:hover{
+    background-color: #000000;
+}
+.nav-slidebar a{
+    width: 100%;
+    text-decoration: none;
+    color: white;
+}
+/* Phần container */
+.container{
+    flex-grow: 1; /* Phần này sẽ chiếm hết không gian còn lại */
+    background-color: white; /* Màu nền của container */
+    color: black;
+    margin: 10px;
+    border: 1px solid gray;
+    border-top: 5px solid #3162A5; 
+    overflow-y: auto; /* Cuộn khi nội dung dài hơn chiều cao */
+}
+/* ---------------------------------------------------------- */
+/* Trang danh sách đoàn khoa */
+.list-header-name{
+    width: 100%;
+    padding: 8px 20px;
+    
+}
+/* nút thêm mới */
+.button-add{
+    padding: 0 20px;
+}
+button{
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #3162A5;
+    color: white;
+    cursor: pointer;
+}
+/* nút thêm trong bảng thêm */
+.button-add-in-form{
+    display: flex;
+    justify-content: center;
+}
+/* Modal (nền) của phần ẩn hiện của bảng thêm thông tin và xác nhận xóa */
+.modal {
+    display: none;
+    position: fixed; /* Cố định vị trí */
+    z-index: 1; /* Đặt lên trên */
+    padding-top: 100px; /* Vị trí của hộp */
+    left: 0;
+    top: 0;
+    width: 100%; /* Đầy chiều rộng */
+    height: 100%; /* Đầy chiều cao */
+    overflow: auto; /* Bật cuộn nếu cần */
+    background-color: rgba(0,0,0,0.4); /* Nền đen mờ */
+}
+
+/* Nội dung Modal */
+.modal-content {
+    width: 13%;
+    height: 40%;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid;
+}
+/* Nút Đóng */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* thiet ke khung chua 2 chuc nang tim kiem và im/ex */
+.gid-form-search-im-ex{
+    display: grid;
+    grid-template-columns: 60% 20%;
+    justify-content: space-between;
+}
+.ex-im-comtainer{
+    margin-top: 40px;
+    display: flex;
+    gap: 5px;
+}
+.ti-export{
+    padding: 5px 7px;
+    border: 1px solid gray;
+    color: #28a745;
+}
+.ti-export:hover{
+    padding: 5px 7px;
+    border: 1px solid gray;
+    color: #218838;
+}
+.ti-import{
+    padding: 5px 7px;
+    border: 1px solid gray;
+    color: #007bff;
+}
+.ti-import:hover{
+    color: #0056b3;
+}
+/* Tim kiem DK*/
+.search-container{  
+    padding: 0 20px;
+    margin-top: 10px;
+}
+.thanh-tim-kiem{
+    width: 80%;
+    padding: 5px;
+}
+.search-button{
+    padding: 5px 10px;
+    background-color: #3162A5;
+    color: white;
+}
+/* bang danh sach DK */
+.table-container{
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #3162A5;
+    color: white;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+/* Nút sửa xóa */
+.btn {
+    padding: 5px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    padding: 5px 25px;
+    margin-top: 0;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    padding: 5px 25px;
+    margin-top: 0;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+/* trang sửa thông tin đoàn khoa*/
+.edit-form{
+    width: 20%;
+    margin: auto;
+    border: 1px solid gray;
+    padding: 20px 20px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+}
+.form-group label{
+    font-weight: bold;
+}
+.form-group input{
+    padding: 5px 10px;
+}
+/* tạo hiệu ứng không cho sửa mã Khoa */
+.form-group input#id_maDK{
+    background-color: #e9ecef; /* Màu nền nhạt cho biết ô bị vô hiệu hóa */
+    color: gray; /* Màu chữ xám nhạt */
+    cursor: not-allowed; /* Con trỏ chuột thay đổi thành biểu tượng cấm */
+    border: 1.5px solid rgb(128, 128, 128);
+    pointer-events: none; /* Đảm bảo người dùng không thể tương tác với trường */
+}
+.button-edit-form{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20%;
+    padding: 0 20px;
+}
+/* ---------------------------------------------------------------------------------- */
+/* form xac nhan xoa */
+.confirm-box {
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%); /* Đảm bảo nó nằm giữa màn hình */
+    z-index: 2; /* Hiển thị trên overlay */
+    border: 1px solid #d9534f;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng nhẹ cho modal */
+}
+.confirm-box .btn {
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+/* Bang thong bao thanh cong và thất bại */
+.messages {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 13%;
+    right: 2%;
+}
+
+.messages li {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.messages li.error {
+    background-color: #f44336;
+}
+
+.messages li.info {
+    background-color: #2196F3;
+}
+
+.messages li.warning {
+    background-color: #ff9800;
+}
+
+/* ---------------------------------------------------------- */
+/* Form trang import file */
+.import-form {
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
+    background-color: #f0f0f5; /* Thêm nền màu nhẹ */
+    border-radius: 8px;
+    border: 1px solid;
+    max-width: 800px;
+
+}
+.import-text {
+    margin-bottom: 20px;
+}
+
+.button-import-cancle {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% endblock  %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/chidoan.css' %}">
+        <link rel="stylesheet" href="{% static 'fonts/themify-icons/themify-icons.css' %}">
+    </head>
+    <body>
+        <div class="header">
+            <img src="{% static 'images/ctuet logo.png' %}" style="height: 60px; margin: 10px 5px;">
+            <div class="header-name">
+                <h1>TRƯỜNG ĐẠI HỌC KỸ THUẬT - CÔNG NGHỆ CẦN THƠ</h1>
+                <h2 style="margin: 10px 0 0 0;">HỆ THỐNG QUẢN LÝ ĐOÀN VIÊN</h2>
+            </div>
+            <img src="{% static 'images/Huy_Hiệu_Đoàn.png' %}" style="height: 60px; margin: 10px 5px;">
+        </div>
+        <div class="wrapper">
+            <div class="nav-slidebar">
+                <ul>
+                    <h3 class=slidebar-name><strong>DANH MỤC MENU</strong></h3>
+                    <li><a href="/"><i class="ti-home"></i> Trang chủ</a></li> 
+                    {% comment %} / dể đén phần index trang home {% endcomment %}
+                    <li><a href="/doanvien"><i class="ti-user"></i> Đoàn viên</a></li>
+                    <li><a href="/chidoan"><i class="ti-layers-alt"></i> Chi đoàn</a></li>
+                    <li><a href="/doankhoa"><i class="ti-crown"></i> Đoàn khoa</a></li>
+                    <li><a href="#"><i class="ti-flag-alt"></i> Hoạt động</a></li>
+                    <li><a href="#"><i class="ti-stats-up"></i> Rèn luyện</a></li>
+                    <li><a href="#"><i class="ti-bar-chart"></i> Thống kê</a></li>
+                </ul>
+                <ul>
+                    <h3 class="user-name"><strong>ADMIN</strong></h3>
+                </ul>
+            </div>   
+            <div class="container">
+                {% block content %}
+
+                {% endblock  %}
+            </div>  
+        </div>
+        <script src="{% static 'js/script.js' %}"></script>
+    </body>
+</html>
