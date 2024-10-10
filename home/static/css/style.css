@@ -251,6 +251,13 @@ tr:hover {
     border: 1.5px solid rgb(128, 128, 128);
     pointer-events: none; /* Đảm bảo người dùng không thể tương tác với trường */
 }
+.form-group input#id_maCD{
+    background-color: #e9ecef; /* Màu nền nhạt cho biết ô bị vô hiệu hóa */
+    color: gray; /* Màu chữ xám nhạt */
+    cursor: not-allowed; /* Con trỏ chuột thay đổi thành biểu tượng cấm */
+    border: 1.5px solid rgb(128, 128, 128);
+    pointer-events: none; /* Đảm bảo người dùng không thể tương tác với trường */
+}
 .button-edit-form{
     display: grid;
     grid-template-columns: auto auto;

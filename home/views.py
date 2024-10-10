@@ -197,7 +197,7 @@ def edit_chidoan(request, maCD):
         form = ChidoanForm(request.POST, instance=chi_doan)  # Dùng instance để cập nhật
         if form.is_valid():
             form.save()
-            messages.success(request, 'Thông tin Đoàn Khoa đã được cập nhật thành công.')
+            messages.success(request, 'Thông tin Chi Đoàn đã được cập nhật thành công.')
             return redirect('chidoan')
     else:
         form = ChidoanForm(instance=chi_doan)
