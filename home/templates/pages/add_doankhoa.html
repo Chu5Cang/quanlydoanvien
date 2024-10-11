@@ -1,10 +1,19 @@
 {% extends "pages/base.html" %}
 
-{% block title %}Sửa thông tin Đoàn Khoa{% endblock %}
+{% block title %}Thêm Đoàn Khoa{% endblock  %}
 
 {% block content %}
-    <h2 style="padding: 20px;">SỬA THÔNG TIN ĐOÀN KHOA</h2>
-    <form class="edit-doankhoa-form" method="POST">
+    <h2 style="padding: 20px;">THÊM ĐOÀN KHOA</h2>
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
+    <form class="add-doankhoa-form" method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <!-- Nút thêm -->
@@ -18,4 +27,4 @@
             </div>
         </div>
     </form>
-{% endblock %}
+{% endblock  %}

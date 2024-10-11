@@ -1,0 +1,60 @@
+/* Định dạng cho form thêm Đoàn Khoa */
+.add-doankhoa-form {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+/* Định dạng cho các ô nhập liệu */
+.add-doankhoa-form input[type="text"], .add-doankhoa-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Trạng thái focus cho các ô nhập liệu */
+.add-doankhoa-form input[type="text"]:focus, .add-doankhoa-form select:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+/* Định dạng cho form sửa Đoàn Khoa */
+.edit-doankhoa-form {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+/* Định dạng cho các ô nhập liệu */
+.edit-doankhoa-form input[type="text"], .edit-doankhoa-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Áp dụng pointer-events: none cho trường maDK (Mã Đoàn Khoa) */
+.edit-doankhoa-form input[name="maDK"] {
+    background-color: #e9ecef;
+    pointer-events: none;
+    color: #6c757d;
+}
+
+/* Trạng thái focus cho các ô nhập liệu */
+.edit-doankhoa-form input[type="text"]:focus, .edit-doankhoa-form select:focus {
+    border-color: #0056b3;
+    outline: none;
+}

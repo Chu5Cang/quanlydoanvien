@@ -5,43 +5,9 @@
 {% block content %}
     <h1 class="list-header-name">DANH SÁCH CHI ĐOÀN</h1>
     {% comment %} chuc nang them {% endcomment %}
-    <div class="button-add">
-        <button id="show-addform"><i class="ti-plus"></i> Thêm mới</button>
-    </div>
-    
-    <!-- Modal thêm Chi Đoàn -->
-    <div id="addform" class="modal">
-        <div class="modal-content-chidoan">
-            <!-- Nút đóng modal -->
-            <span class="close">&times;</span>
-            <h2>Thêm Chi Đoàn</h2>
-            <form method="POST" action="{% url 'add_chidoan' %}">
-                {% csrf_token %}
-                <!-- Mã Chi Đoàn -->
-                <label for="maCD">Mã Chi Đoàn:</label><br>
-                <input type="text" id="maCD" name="maCD" placeholder="Nhập mã Chi Đoàn" required><br><br>
-            
-                <!-- Tên Chi Đoàn -->
-                <label for="tenCD">Tên Chi Đoàn:</label><br>
-                <input type="text" id="tenCD" name="tenCD" placeholder="Nhập tên Chi Đoàn" required><br><br>
-            
-                <!-- Đoàn Khoa -->
-                <label for="maDK">Đoàn Khoa:</label><br>
-                <select id="maDK" name="maDK" required>
-                    <option value="">Chọn Đoàn Khoa</option>
-                    {% for doankhoa in doankhoas %}
-                        <option value="{{ doankhoa.maDK }}">{{ doankhoa.maDK }}</option>
-                    {% endfor %}
-                </select>
-                
-                <!-- Nút thêm -->
-                <div class="button-add-in-form">
-                    <button type="submit" style="margin-top: 30px; padding: 5px 15px;">Thêm</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
+    <a class="button-add" href="{% url 'add_chidoan' %}">
+        <button><i class="ti-plus"></i> Thêm mới</button>
+    </a>
     {% if messages %}
             <ul class="messages">
                 {% for message in messages %}

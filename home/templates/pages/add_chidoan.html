@@ -1,0 +1,30 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Thêm Chi Đoàn{% endblock  %}
+
+{% block content %}
+    <h2 style="padding: 20px;">THÊM CHI ĐOÀN</h2>
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
+    <form class="add-chidoan-form" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <!-- Nút thêm -->
+        <div class="button-edit-add-form">
+            <div>
+                <button type="submit" class="btn btn-success">Thêm</button>
+            </div>
+            <div>
+                {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
+                <a href="/chidoan"><button type="button" class="btn btn-cancel">Hủy</button></a>
+            </div>
+        </div>
+    </form>
+{% endblock  %}

@@ -1,8 +1,84 @@
-.modal-content-chidoan {
-    width: 13%;
-    height: 40%;
-    background-color: #fefefe;
-    margin: auto;
+/* bố trí trang thêm của CHI DOAN */
+.add-chidoan-form {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Định dạng cho từng ô nhập liệu */
+.add-chidoan-form input[type="text"], .add-chidoan-form select {
+    width: 100%;
     padding: 10px;
-    border: 1px solid;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Trạng thái khi focus vào ô nhập liệu */
+.add-chidoan-form input[type="text"]:focus, .add-chidoan-form select:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+/* Định dạng cho container của nút */
+.button-add-in-form {
+    text-align: center;
+}
+
+/* Định dạng cho nút */
+.button-add-in-form button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Hiệu ứng khi rê chuột vào nút */
+.button-add-in-form button:hover {
+    background-color: #003366;
+}
+/* ------------------------------------------------------------------ */
+/* Trang sửa thông tin chi đoàn */
+/* Định dạng cho form sửa Chi Đoàn */
+.edit-chidoan-form {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+/* Định dạng cho từng ô nhập liệu */
+.edit-chidoan-form input[type="text"], .edit-chidoan-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Vô hiệu hóa sự kiện cho trường maCD */
+.edit-chidoan-form input[name="maCD"] {
+    background-color: #e9ecef;
+    pointer-events: none;
+    color: #6c757d;
+}
+
+/* Trạng thái focus cho các ô nhập liệu */
+.edit-chidoan-form input[type="text"]:focus, .edit-chidoan-form select:focus {
+    border-color: #0056b3;
+    outline: none;
 }

@@ -80,7 +80,7 @@
 }
 /* nút thêm mới */
 .button-add{
-    padding: 0 20px;
+    margin: 0 20px;
 }
 button{
     margin-top: 10px;
@@ -225,46 +225,13 @@ tr:hover {
 .btn-secondary {
     background-color: #6c757d;
 }
-/* trang sửa thông tin đoàn khoa*/
-.edit-form{
-    width: 20%;
-    margin: auto;
-    border: 1px solid gray;
-    padding: 20px 20px;
-}
-.form-group {
+/* Phan nut cua chuc nang add va edit */
+.button-edit-add-form {
     display: flex;
-    flex-direction: column;
-    line-height: 1.5;
+    justify-content: space-between;
+    margin-top: 20px;
 }
-.form-group label{
-    font-weight: bold;
-}
-.form-group input{
-    padding: 5px 10px;
-}
-/* tạo hiệu ứng không cho sửa mã Khoa */
-.form-group input#id_maDK{
-    background-color: #e9ecef; /* Màu nền nhạt cho biết ô bị vô hiệu hóa */
-    color: gray; /* Màu chữ xám nhạt */
-    cursor: not-allowed; /* Con trỏ chuột thay đổi thành biểu tượng cấm */
-    border: 1.5px solid rgb(128, 128, 128);
-    pointer-events: none; /* Đảm bảo người dùng không thể tương tác với trường */
-}
-.form-group input#id_maCD{
-    background-color: #e9ecef; /* Màu nền nhạt cho biết ô bị vô hiệu hóa */
-    color: gray; /* Màu chữ xám nhạt */
-    cursor: not-allowed; /* Con trỏ chuột thay đổi thành biểu tượng cấm */
-    border: 1.5px solid rgb(128, 128, 128);
-    pointer-events: none; /* Đảm bảo người dùng không thể tương tác với trường */
-}
-.button-edit-form{
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 20%;
-    padding: 0 20px;
-}
-/* ---------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
 /* form xac nhan xoa */
 .confirm-box {
     position: fixed;

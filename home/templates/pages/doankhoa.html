@@ -5,25 +5,9 @@
 {% block content %}
     <h1 class="list-header-name">DANH SÁCH ĐOÀN KHOA</h1>
     {% comment %} chuc nang them {% endcomment %}
-    <div class="button-add"><button id="show-addform"><i class="ti-plus"></i> Thêm mới</button></div>
-    <div id="addform" class="modal">
-        <div class="modal-content">
-            {% comment %} nut thoat X {% endcomment %}
-            <span class="close" style="">&times;</span>
-            <br><br>
-            <h2>Thêm Đoàn Khoa</h2>
-            <br>
-            <form method="POST" action="{% url 'add_doankhoa' %}">
-                {% csrf_token %}
-                <label for="maDK">Mã Đoàn Khoa:</label><br>
-                <input type="text" required id="maDK"  name="maDK"><br><br>
-                <label for="tenDK">Tên Đoàn Khoa:</label>
-                <br>
-                <input type="text" required id="tenDK" name="tenDK">
-                <div class="button-add-in-form"><button style="margin-top: 30px; padding: 5px 15px;">Thêm</button></div>
-            </form>
-        </div>
-    </div>
+    <a class="button-add" href="{% url 'add_doankhoa' %}">
+        <button><i class="ti-plus"></i> Thêm mới</button>
+    </a>
     {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -33,6 +17,7 @@
                 {% endfor %}
             </ul>
     {% endif %}
+    
     {% comment %} ----------------------------------------------------- {% endcomment %}
     <br>
     <br>

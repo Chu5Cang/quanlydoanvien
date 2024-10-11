@@ -41,11 +41,11 @@ def add_doankhoa(request):
             messages.success(request, 'Thêm thành công!')
             return redirect('doankhoa')  # Chuyển hướng về trang danh sách Đoàn Khoa
         else:
-            messages.error(request, 'Thêm thất bại, vui lòng kiểm tra lại thông tin')
-            return redirect('doankhoa')
+            messages.error(request, 'Thêm thất bại, vui lòng kiểm tra lại thông tin, có thể thông tin đã tồn tại.')
+            return redirect('add_doankhoa')
     else:
         form = DoankhoaForm()
-    return render(request, 'pages/doankhoa.html', {'form': form})
+    return render(request, 'pages/add_doankhoa.html', {'form': form})
 
 
 # Phan chinh sua doan khoa
@@ -184,7 +184,8 @@ def add_chidoan(request):
             messages.success(request, 'Thêm thành công!')
             return redirect('chidoan')
         else:
-            messages.error(request, 'Thêm thất bại, vui lòng kiểm tra lại thông tin')
+            messages.error(request, 'Thêm thất bại, vui lòng kiểm tra lại thông tin, có thể thông tin đã tồn tại.')
+            return redirect('add_chidoan')
     else:
         form = ChidoanForm()
         doankhoas = Doankhoa.objects.all()  # Lấy tất cả các Đoàn Khoa

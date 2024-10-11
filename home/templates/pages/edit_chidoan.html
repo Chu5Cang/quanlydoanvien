@@ -4,27 +4,16 @@
 
 {% block content %}
     <h2 style="padding: 20px;">SỬA THÔNG TIN CHI ĐOÀN</h2>
-    <div class="edit-form">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="maCD">Mã Chi Đoàn: </label>
-                {{ form.maCD }}
-                <label for="tenCD">Tên Chi Đoàn: </label>
-                {{ form.tenCD }}
-                <label for="maDK">Đoàn Khoa: </label>
-                {{ form.maDK }}
+    <form class="edit-chidoan-form" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <div class="button-edit-add-form">
+            <div>
+                <button type="submit" class="btn btn-success">Lưu</button>
             </div>
-            <div class="button-edit-form">
-                <div>
-                    <button type="submit" class="btn btn-success">Lưu</button>
-                </div>
-                <div>
-                    {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
-                    <a href="/chidoan"><button type="button" class="btn btn-cancel">Hủy</button></a>
-                </div>
-                
+            <div>
+                <a href="/chidoan"><button type="button" class="btn btn-cancel">Hủy</button></a>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 {% endblock %}
