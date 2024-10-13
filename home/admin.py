@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Doankhoa, Chidoan
+from .models import Doankhoa, Chidoan,Doanvien
 # Register your models here.
 admin.site.register(Doankhoa)
 admin.site.register(Chidoan)
+admin.site.register(Doanvien)

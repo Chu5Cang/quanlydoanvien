@@ -37,6 +37,16 @@ function confirmDeletedChiDoan(maCD) {
   // Hiển thị modal
   modal.style.display = "block";
 }
+function confirmDeletedDoanVien(maDV) {
+  var modal = document.getElementById("confirmDeleteModalDoanVien");  // Đổi thành confirmDeleteModalDoanVien
+  var form = modal.querySelector("form");
+
+  // Cập nhật action của form để gửi yêu cầu xóa đúng đối tượng
+  form.action = "/doanvien/" + maDV + "/delete/";
+
+  // Hiển thị modal
+  modal.style.display = "block";
+}
 
 // Hàm đóng modal xác nhận Đoàn Khoa
 function closeModalDoanKhoa() {
@@ -49,17 +59,26 @@ function closeModalChiDoan() {
   var modal = document.getElementById("confirmDeleteModalChiDoan");
   modal.style.display = "none";
 }
+function closeModalDoanVien() {
+  var modal = document.getElementById("confirmDeleteModalDoanVien");  // Sửa tên ID cho đúng
+  modal.style.display = "none";
+}
 
 // Đóng modal khi nhấn ra ngoài modal cho cả Đoàn Khoa và Chi Đoàn
 window.onclick = function(event) {
   var modalDoanKhoa = document.getElementById("confirmDeleteModalDoanKhoa");
   var modalChiDoan = document.getElementById("confirmDeleteModalChiDoan");
+  var modalDoanVien = document.getElementById("confirmDeleteModalDoanVien");
 
   if (event.target == modalDoanKhoa) {
-    closeModalDoanKhoa();
+      closeModalDoanKhoa();
   }
 
   if (event.target == modalChiDoan) {
-    closeModalChiDoan();
+      closeModalChiDoan();
+  }
+
+  if (event.target == modalDoanVien) {
+      closeModalDoanVien();
   }
 };
