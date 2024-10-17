@@ -1,0 +1,61 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Quản lý Đoàn phí{% endblock  %}
+
+{% block content %}
+    <h1 class="list-header-name">DANH SÁCH ĐOÀN PHÍ</h1>
+    <form method="GET">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Lọc</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã Đoàn phí</th>
+                <th>Mã Đoàn viên</th>
+                <th>Tên Đoàn viên</th>
+                <th>Số tiền</th>
+                <th>Học kỳ</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doanphi in doanphis %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ doanphi.maDP }}</td> <!-- Mã Đoàn phí -->
+                    <td>{{ doanphi.doanvien.maDV }}</td> <!-- Mã Đoàn viên -->
+                    <td>{{ doanphi.doanvien.tenDV }}</td> <!-- Tên Đoàn viên -->
+                    <td>{{ doanphi.sotien }}</td> <!-- Số tiền -->
+                    <td>{{ doanphi.hocky.tenHK }}</td> <!-- Học kỳ -->
+                    <td>
+                        {% if doanphi.trangthai == 'nop' %}
+                            Đã nộp
+                        {% else %}
+                            Chưa nộp
+                        {% endif %}
+                    </td> <!-- Trạng thái -->
+                    <td>
+                        <div style="display: grid; grid-template-columns: auto auto;">
+                            <div>
+                               <!-- Nút Sửa Dang test-->
+                                <a href="#">
+                                <button class="btn btn-primary"><p class="ti-write"></p></button>
+                                </a> 
+                            </div>
+                            <div>
+                                <!-- Nút Xóa -->
+                                <button class="btn btn-danger" onclick="#"><p class="ti-trash"></p></button>
+                            </div>
+                            
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock  %}

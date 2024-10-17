@@ -44,3 +44,37 @@ class Doanvien(models.Model):
         db_table = 'doanvien'
         verbose_name = 'Đoàn Viên'
         verbose_name_plural = 'Đoàn Viên'
+
+# Model Học Kỳ
+class Hocky(models.Model):
+    maHK = models.CharField(max_length=10, primary_key=True)  # Mã học kỳ
+    tenHK = models.CharField(max_length=100)  # Tên học kỳ (ví dụ: "Học kỳ 1 - 2024")
+
+    def __str__(self):
+        return self.maHK
+
+    class Meta:
+        db_table = 'hocky'
+        verbose_name = 'Học Kỳ'
+        verbose_name_plural = 'Các Học Kỳ'
+
+class Doanphi(models.Model):
+    maDP = models.CharField(max_length=50, primary_key=True)
+    doanvien = models.ForeignKey(Doanvien, on_delete=models.CASCADE)  # Liên kết đến Đoàn viên
+    hocky = models.ForeignKey(Hocky, on_delete=models.CASCADE)  # Liên kết đến Học kỳ
+    sotien = models.DecimalField(max_digits=10, decimal_places=2)  # Số tiền đóng đoàn phí
+    
+    TRANG_THAI_CHOICES = [
+        ('da_dong', 'Đã đóng'),
+        ('chua_dong', 'Chưa đóng'),
+    ]
+    trangthai = models.CharField(max_length=20, choices=TRANG_THAI_CHOICES, default='chua_dong')  # Trạng thái đóng phí
+
+    def __str__(self):
+        return f"Đoàn phí {self.sotien} - {self.doanvien} - {self.trangthai}"
+
+    class Meta:
+        db_table = 'doanphi'
+        verbose_name = 'Đoàn Phí'
+        verbose_name_plural = 'Các Đoàn Phí'
+

@@ -1,7 +1,5 @@
 from django import forms
-from .models import Doankhoa
-from .models import Chidoan
-from .models import Doanvien 
+from .models import Doankhoa, Chidoan, Doanvien, Doanphi, Hocky
 import datetime
 class DoankhoaForm(forms.ModelForm):
     class Meta:
@@ -79,3 +77,24 @@ class DoanvienForm(forms.ModelForm):
         super(DoanvienForm, self).__init__(*args, **kwargs)
         if self.instance.pk:  # Kiểm tra xem đây có phải là trường hợp sửa không
             self.fields['maCD'].widget.attrs['readonly'] = True  # Chỉ đọc nếu đang sửa
+
+class DoanphiForm(forms.ModelForm):
+    class Meta:
+        model = Doanphi
+        fields = ['doanvien', 'hocky', 'sotien', 'trangthai']
+        widgets = {
+            'doanvien': forms.Select(attrs={'class': 'form-control'}),
+            'hocky': forms.Select(attrs={'class': 'form-control'}),
+            'sotien': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Nhập số tiền'}),
+            'trangthai': forms.Select(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'doanvien': 'Đoàn viên',
+            'hocky': 'Học kỳ',
+            'sotien': 'Số tiền',
+            'trangthai': 'Trạng thái',
+        }
+
+class DoanPhiFilterForm(forms.Form):
+    chidoan = forms.ModelChoiceField(queryset=Chidoan.objects.all(), label='Chọn Chi đoàn', required=False)
+    hocky = forms.ModelChoiceField(queryset=Hocky.objects.all(), label='Chọn Học kỳ', required=False)
