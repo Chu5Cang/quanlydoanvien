@@ -57,7 +57,8 @@
                     <th width="10%">Ngày Sinh</th>         
                     <th width="8%">Quê Quán</th>          
                     <th width="10%">Số điện thoại</th>      
-                    <th width="8%">Ngày Vào Đoàn</th>      
+                    <th width="8%">Ngày Vào Đoàn</th>     
+                    <th width="10%">Chuc vu</th>  
                     <th width="15%">Hành Động</th>         
                     
                 </tr>
@@ -75,7 +76,7 @@
                     <td>{{ doanvien.que_quan }}</td>
                     <td>{{ doanvien.sdt }}</td>
                     <td>{{ doanvien.ngay_vao_doan|date:"d/m/Y" }}</td>
-                    
+                    <td>{{ doanvien.maCV }}</td>
                     <td>
                         <div style="display: grid; grid-template-columns: auto auto;">
                             <div>

@@ -53,7 +53,7 @@ class ImportExcelForm(forms.Form):
 class DoanvienForm(forms.ModelForm):
     class Meta:
         model = Doanvien
-        fields = ['maDV', 'tenDV', 'maCD', 'gioi_tinh', 'ngay_sinh', 'que_quan', 'sdt', 'ngay_vao_doan']
+        fields = ['maDV', 'tenDV', 'maCD', 'gioi_tinh', 'ngay_sinh', 'que_quan', 'sdt', 'ngay_vao_doan','maCV']
         widgets = {
             'maDV': forms.TextInput(attrs={'placeholder': 'Mã Đoàn Viên'}),
             'tenDV': forms.TextInput(attrs={'placeholder': 'Tên Đoàn Viên'}),
@@ -63,6 +63,7 @@ class DoanvienForm(forms.ModelForm):
             'que_quan': forms.TextInput(attrs={'placeholder': 'Quê Quán'}),
             'sdt': forms.TextInput(attrs={'placeholder': 'SĐT'}),
             'ngay_vao_doan': forms.DateInput(attrs={'placeholder': 'Ngày Vào Đoàn', 'type': 'date'}),  # Đặt type là date
+            'maCV': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {
             'maDV': 'Mã Đoàn Viên',
@@ -73,6 +74,7 @@ class DoanvienForm(forms.ModelForm):
             'que_quan': 'Quê Quán',
             'sdt': 'SĐT',
             'ngay_vao_doan': 'Ngày Vào Đoàn',
+            'maCV': 'Chức Vụ',
         }
 
     def __init__(self, *args, **kwargs):

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 #  Sử dụng Q objects từ Django để kết hợp nhiều điều kiện tìm kiếm.
 from django.db.models import Q
-from .models import Doankhoa, Chidoan,Doanvien
+from .models import Doankhoa, Chidoan,Doanvien,Chucvu
 from .forms import DoankhoaForm, ChidoanForm,DoanvienForm
 # goi thu vien pandas xay dung chuc nang import/export 
 import pandas
@@ -352,7 +352,7 @@ def import_doanvien(request):
                 df = pandas.read_excel(excel_file)
 
                 # Kiểm tra định dạng file
-                required_columns = ['STT', 'Mã Đoàn Viên', 'Tên Đoàn Viên', 'Mã Chi Đoàn', 'Giới Tính', 'Ngày Sinh', 'Quê Quán', 'Số điện thoại', 'Ngày Vào Đoàn']
+                required_columns = ['STT', 'Mã Đoàn Viên', 'Tên Đoàn Viên', 'Mã Chi Đoàn', 'Giới Tính', 'Ngày Sinh', 'Quê Quán', 'Số điện thoại', 'Ngày Vào Đoàn', 'Chức Vụ']
                 if not all(col in df.columns for col in required_columns):
                     messages.error(request, "File không đúng định dạng. Vui lòng kiểm tra lại.")
                     return redirect('import_doanvien')
@@ -367,6 +367,14 @@ def import_doanvien(request):
                             messages.error(request, f"Chi Đoàn '{ma_cd}' không tồn tại. Vui lòng kiểm tra lại.")
                             return redirect('import_doanvien')
 
+                        # Kiểm tra mã chức vụ
+                        ma_cv = row['Chức Vụ']
+                        try:
+                            chuc_vu = Chucvu.objects.get(tenCV=ma_cv)  # Kiểm tra tên chức vụ
+                        except Chucvu.DoesNotExist:
+                            messages.error(request, f"Chức vụ '{ma_cv}' không tồn tại. Vui lòng kiểm tra lại.")
+                            return redirect('import_doanvien')
+
                         # Tạo Đoàn Viên
                         doanvien = Doanvien(
                             maDV=row['Mã Đoàn Viên'],
@@ -377,6 +385,7 @@ def import_doanvien(request):
                             que_quan=row['Quê Quán'],
                             sdt=row['Số điện thoại'],
                             ngay_vao_doan=datetime.strptime(row['Ngày Vào Đoàn'], "%d/%m/%Y").date(),
+                            maCV=chuc_vu,  # Liên kết đến đối tượng Chức Vụ
                         )
                         doanvien.save()
 
@@ -391,8 +400,8 @@ def import_doanvien(request):
 
     return render(request, 'pages/import_doanvien.html', {'form': form})
 def export_doanvien(request):
-    doanviens = Doanvien.objects.all().values(
-        'maDV', 'tenDV', 'maCD', 'gioi_tinh', 'ngay_sinh', 'que_quan', 'sdt', 'ngay_vao_doan'
+    doanviens = Doanvien.objects.select_related('maCV').values(
+        'maDV', 'tenDV', 'maCD', 'gioi_tinh', 'ngay_sinh', 'que_quan', 'sdt', 'ngay_vao_doan', 'maCV__tenCV'
     )
 
     if not doanviens.exists():
@@ -403,7 +412,7 @@ def export_doanvien(request):
     ws = wb.active
     ws.title = "Danh sách Đoàn Viên"
 
-    headers = ['STT', 'Mã Đoàn Viên', 'Tên Đoàn Viên', 'Mã Chi Đoàn', 'Giới Tính', 'Ngày Sinh', 'Quê Quán', 'Số điện thoại', 'Ngày Vào Đoàn']
+    headers = ['STT', 'Mã Đoàn Viên', 'Tên Đoàn Viên', 'Mã Chi Đoàn', 'Giới Tính', 'Ngày Sinh', 'Quê Quán', 'Số điện thoại', 'Ngày Vào Đoàn', 'Chức Vụ']
 
     thin_border = Border(left=Side(style='thin'),
                          right=Side(style='thin'),
@@ -445,6 +454,10 @@ def export_doanvien(request):
 
         cell_ngay_vao_doan = ws.cell(row=row_num, column=9, value=doanvien['ngay_vao_doan'])
         cell_ngay_vao_doan.border = thin_border
+
+        # Hiển thị tên chức vụ
+        cell_ten_chuc_vu = ws.cell(row=row_num, column=10, value=doanvien['maCV__tenCV'])
+        cell_ten_chuc_vu.border = thin_border
 
     # Thiết lập đường viền cho tất cả các ô
     for row in ws.iter_rows(min_row=1, min_col=1, max_row=len(doanviens) + 1, max_col=len(headers)):
