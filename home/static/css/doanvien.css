@@ -41,19 +41,16 @@
     margin-top: -5px; 
 }
 .btn-successs{
-    background-color: rgb(59, 189, 26);
+    background-color:  #0056b3;
 }
-.btn-successs:hover{
-    background-color: rgb(54, 228, 11);
-    color: white;
-}
+
 .btns{
     border: none;
     border-radius: 5px;
     height: 30px;
     width: 65px;
 }
-.btn-cancels:hover{
-    background-color: rgb(94, 89, 233);
+.btn-cancels{
+    background-color: #6c757d;
     
 }

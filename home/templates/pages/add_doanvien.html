@@ -3,7 +3,7 @@
 {% block title %}Thêm Đoàn Khoa{% endblock  %}
 
 {% block content %}
-    <h2 style="padding:20px 30px;">THÊM ĐOÀN VIEN</h2>
+    <h2 style="padding:20px 30px;">THÊM ĐOÀN VIÊN</h2>
     {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -53,16 +53,13 @@
                 <input type="date" name="ngay_vao_doan" placeholder="Ngày Vào Đoàn" required id="id_ngay_vao_doan">
             </p>
     
-            <p class ="option">
+            <p class="option">
                 <label for="id_maCV">Chức Vụ:</label>
                 <select name="maCV" class="form-controls" required id="id_maCV">
                     <option value="" selected>---------</option>
-    
-                    <option value="CV01">Ủy Viên</option>
-    
-                    <option value="CV02">Phó Bí Thư</option>
-    
-                    <option value="CV03">Bí Thư</option>
+                    {% for chucvu in chucvus %}
+                        <option value="{{ chucvu.maCV }}">{{ chucvu.tenCV }}</option>
+                    {% endfor %}
                 </select>
             </p>
             <p class ="option">

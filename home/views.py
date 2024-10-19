@@ -319,8 +319,8 @@ def add_doanvien(request):
     else:
         form = DoanvienForm()  # Tạo một instance mới của DoanvienForm
         chidoan =Chidoan.objects.all()
-
-    return render(request, 'pages/add_doanvien.html', {'form': form,'chidoan':chidoan})  # Hiển thị form
+        chucvus =Chucvu.objects.all()
+    return render(request, 'pages/add_doanvien.html', {'form': form,'chidoan':chidoan,'chucvus':chucvus})  # Hiển thị form
 def delete_doanvien(request, maDV):
     doan_vien = Doanvien.objects.get(maDV=maDV)  # Lấy đối tượng DoanVien bằng maDV
 
