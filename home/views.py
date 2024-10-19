@@ -301,10 +301,12 @@ def doanvien(request):
     if query:
         # chidoans = Chidoan.objects.filter(Q(tenCD__icontains=query) | Q(maCD__icontains=query))
         doanviens = Doanvien.objects.filter(Q(tenDV__icontains=query) | Q(maDV__icontains=query))
+        chidoans = Chidoan.objects.filter(Q(maCD__icontains=query))
     else:
         doanviens = Doanvien.objects.all()
+        chidoans = Chidoan.objects.all()
         # chidoans =Chidoan.objects.all()
-    return render(request, 'pages/doanvien.html', {'doanviens': doanviens})
+    return render(request, 'pages/doanvien.html', {'doanviens': doanviens, chidoans: chidoans})
 def add_doanvien(request):
     if request.method == "POST":
         form = DoanvienForm(request.POST)

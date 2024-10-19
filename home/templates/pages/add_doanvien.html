@@ -3,7 +3,7 @@
 {% block title %}Thêm Đoàn Khoa{% endblock  %}
 
 {% block content %}
-    <h2 style="padding: 20px;">THÊM ĐOÀN VIEN</h2>
+    <h2 style="padding:20px 30px;">THÊM ĐOÀN VIEN</h2>
     {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -13,18 +13,72 @@
                 {% endfor %}
             </ul>
     {% endif %}
-    <form class="add-chidoan-form" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <!-- Nút thêm -->
-        <div class="button-edit-add-form">
-            <div>
-                <button type="submit" class="btn btn-success">Thêm</button>
+    <div class="conten-doanvien">
+        <form class="add-doanvien-forms" method="POST">
+            {% csrf_token %}
+            <p>
+                <label for="id_maDV">Mã Đoàn Viên:</label>
+                <input type="text" name="maDV" placeholder="Mã Đoàn Viên" maxlength="20" required id="id_maDV">
+            </p>
+    
+            <p>
+                <label for="id_tenDV">Tên Đoàn Viên:</label>
+                <input type="text" name="tenDV" placeholder="Tên Đoàn Viên" maxlength="100" required id="id_tenDV">
+            </p>
+    
+            <p>
+                <label for="id_maCD">Mã Chi Đoàn:</label>
+                <input type="text" name="maCD" placeholder="Mã Chi Đoàn" required id="id_maCD">
+            </p>
+    
+           
+    
+            <p>
+                <label for="id_ngay_sinh">Ngày Sinh:</label>
+                <input type="date" name="ngay_sinh" placeholder="Ngày Sinh" required id="id_ngay_sinh">
+            </p>
+    
+            <p>
+                <label for="id_que_quan">Quê Quán:</label>
+                <input type="text" name="que_quan" placeholder="Quê Quán" maxlength="100" required id="id_que_quan">
+            </p>
+    
+            <p>
+                <label for="id_sdt">SĐT:</label>
+                <input type="text" name="sdt" value="N/A" placeholder="SĐT" maxlength="15" required id="id_sdt">
+            </p>
+    
+            <p>
+                <label for="id_ngay_vao_doan">Ngày Vào Đoàn:</label>
+                <input type="date" name="ngay_vao_doan" placeholder="Ngày Vào Đoàn" required id="id_ngay_vao_doan">
+            </p>
+    
+            <p class ="option">
+                <label for="id_maCV">Chức Vụ:</label>
+                <select name="maCV" class="form-controls" required id="id_maCV">
+                    <option value="" selected>---------</option>
+    
+                    <option value="CV01">Ủy Viên</option>
+    
+                    <option value="CV02">Phó Bí Thư</option>
+    
+                    <option value="CV03">Bí Thư</option>
+                </select>
+            </p>
+            <p class ="option">
+                <label for="id_gioi_tinh">Giới Tính:</label>
+                <select name="gioi_tinh" class="form-controls" id="id_gioi_tinh">
+                <option value="0" selected>Nam</option>
+                <option value="1">Nữ</option>
+                </select>
+            </p>
+            <!-- Nút thêm -->
+            <div class="button-edit-add-forms">
+                <div>
+                    <button type="submit" class="btns btn-successs">Thêm</button>
+                    <a href="/doanvien"><button type="button" class="btns btn-cancels">Hủy</button></a>
+                </div>
             </div>
-            <div>
-                {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
-                <a href="/doanvien"><button type="button" class="btn btn-cancel">Hủy</button></a>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock  %}
