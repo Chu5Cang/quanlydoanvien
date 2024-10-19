@@ -78,6 +78,10 @@
                         </div>
                     </td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">Không có dữ liệu.</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>

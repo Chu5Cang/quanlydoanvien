@@ -1,0 +1,10 @@
+.doanphi-form{
+    padding: 20px;
+    display: flex; /* Sử dụng flexbox để sắp xếp nằm ngang */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    gap: 15px; /* Khoảng cách giữa các phần tử */
+}
+.form-doanphi-group {
+    display: flex; /* Để đảm bảo label và input nằm ngang */
+    flex-direction: column; /* Đặt label ở trên input */
+}

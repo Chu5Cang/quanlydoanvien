@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 #  Sử dụng Q objects từ Django để kết hợp nhiều điều kiện tìm kiếm.
 from django.db.models import Q
-from .models import Doankhoa, Chidoan,Doanvien,Chucvu
-from .forms import DoankhoaForm, ChidoanForm,DoanvienForm
+from .models import Doankhoa, Chidoan, Doanvien, Chucvu, Doanphi, Hocky
+from .forms import DoankhoaForm, ChidoanForm, DoanvienForm, DoanphiForm, DoanphiFilterForm
 # goi thu vien pandas xay dung chuc nang import/export 
 import pandas
 import openpyxl
@@ -471,3 +471,18 @@ def export_doanvien(request):
     response['Content-Disposition'] = 'attachment; filename="doanvien.xlsx"'
     wb.save(response)
     return response
+
+def doanphi(request):
+    doanphis = Doanphi.objects.all()  # Bắt đầu với tất cả đoàn phí
+    form = DoanphiFilterForm(request.GET)  # Lấy dữ liệu từ form filter
+
+    if form.is_valid():
+        maCD = form.cleaned_data.get('maCD')
+        hocky = form.cleaned_data.get('hocky')
+
+        if maCD:
+            doanphis = doanphis.filter(maDV__maCD=maCD)  # Lọc theo Chi Đoàn
+        if hocky:
+            doanphis = doanphis.filter(hocky=hocky)  # Lọc theo Học Kỳ
+
+    return render(request, 'pages/doanphi.html', {'doanphis': doanphis, 'form': form})

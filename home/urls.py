@@ -23,4 +23,6 @@ urlpatterns = [
     # name='add_doanvien nay coi nhu la 1 bien dai dien cho url de có thể sử dụng trong html
     path('doanvien/import/', views.import_doanvien, name='import_doanvien'),
     path('doanvien/export/', views.export_doanvien, name='export_doanvien'),
+
+    path('doanphi/', views.doanphi, name='doanphi'),
 ]

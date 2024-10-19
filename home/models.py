@@ -34,7 +34,7 @@ class Chucvu(models.Model):
     class Meta:
             db_table = 'chucvu'
             verbose_name = 'Chức Vụ'
-            verbose_name_plural = 'Các Chức VỤ'
+            verbose_name_plural = 'Các Chức Vụ'
 
 class Doanvien(models.Model):
     maDV = models.CharField(max_length=20, primary_key=True)  # Mã Đoàn Viên
@@ -49,7 +49,7 @@ class Doanvien(models.Model):
     que_quan = models.CharField(max_length=100)  # Quê Quán
     sdt = models.CharField(max_length=15, default='N/A')  # Cung cấp giá trị mặc định
     ngay_vao_doan = models.DateField()  # Ngày Vào Đoàn
-    maCV = models.ForeignKey(Chucvu, on_delete=models.CASCADE)  # Liên kết đến Chức Vụ
+    maCV = models.ForeignKey(Chucvu, on_delete=models.CASCADE, default = "Đoàn viên")  # Liên kết đến Chức Vụ
 
     def __str__(self):
         return self.tenDV
@@ -58,3 +58,34 @@ class Doanvien(models.Model):
         verbose_name = 'Đoàn Viên'
         verbose_name_plural = 'Các Đoàn Viên' 
 
+class Hocky(models.Model):
+    maHK = models.CharField(max_length=10, primary_key=True)  # Mã học kỳ
+    tenHK = models.CharField(max_length=100)  # Tên học kỳ (ví dụ: "Học Kỳ 1 Năm 2024")
+
+    def __str__(self):
+        return self.tenHK
+
+    class Meta:
+        db_table = 'hocky'
+        verbose_name = 'Học Kỳ'
+        verbose_name_plural = 'Các Học Kỳ'
+
+class Doanphi(models.Model):
+    TRANGTHAI_CHOICES = [
+        (0, 'Chưa đóng'),
+        (1, 'Đã đóng'),
+    ]
+
+    maDP = models.CharField(max_length=20, primary_key=True)
+    maDV = models.ForeignKey(Doanvien, on_delete=models.CASCADE)
+    sotien = models.DecimalField(max_digits=10, decimal_places=2)
+    hocky = models.ForeignKey(Hocky, on_delete=models.CASCADE)
+    trangthai = models.PositiveSmallIntegerField(choices=TRANGTHAI_CHOICES, default=0)
+    
+    def __str__(self):
+        return f'{self.maDV} - {self.sotien} VNĐ - {self.hocky}'
+
+    class Meta:
+        db_table = 'doanphi'
+        verbose_name = 'Đoàn Phí'
+        verbose_name_plural = 'Các Đoàn Phí'

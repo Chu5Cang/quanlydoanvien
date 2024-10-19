@@ -1,7 +1,5 @@
 from django import forms
-from .models import Doankhoa
-from .models import Chidoan
-from .models import Doanvien 
+from .models import Doankhoa, Chidoan, Doanvien, Doanphi
 import datetime
 class DoankhoaForm(forms.ModelForm):
     class Meta:
@@ -81,3 +79,34 @@ class DoanvienForm(forms.ModelForm):
         super(DoanvienForm, self).__init__(*args, **kwargs)
         if self.instance.pk:  # Kiểm tra xem đây có phải là trường hợp sửa không
             self.fields['maCD'].widget.attrs['readonly'] = True  # Chỉ đọc nếu đang sửa
+
+class DoanphiForm(forms.ModelForm):
+    class Meta:
+        model = Doanphi
+        fields = ['maDV', 'sotien', 'hocky', 'trangthai']  # Các trường trong form
+        widgets = {
+            'maDV': forms.Select(attrs={'class': 'form-control'}),  # Dropdown chọn Đoàn viên
+            'sotien': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Nhập số tiền'}),  # Input số tiền
+            'hocky': forms.Select(attrs={'class': 'form-control'}),  # Dropdown chọn Học kỳ
+            'trangthai': forms.Select(choices=Doanphi.TRANGTHAI_CHOICES, attrs={'class': 'form-control'}),  # Dropdown trạng thái
+        }
+        labels = {
+            'maDV': 'Đoàn viên',
+            'sotien': 'Số tiền',
+            'hocky': 'Học kỳ',
+            'trangthai': 'Trạng thái thanh toán',
+        }
+
+# Form filter hocky maCD
+from django import forms
+from .models import Chidoan, Hocky
+
+class DoanphiFilterForm(forms.Form):
+    maCD = forms.ModelChoiceField(queryset=Chidoan.objects.all(), required=False, label='Chi Đoàn', widget=forms.Select(attrs={'class': 'form-control'}))
+    hocky = forms.ModelChoiceField(queryset=Hocky.objects.all(), required=False, label='Học Kỳ', widget=forms.Select(attrs={'class': 'form-control'}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Cập nhật queryset để chỉ hiển thị mã
+        self.fields['maCD'].label_from_instance = lambda obj: obj.maCD  # Hiện mã Chi Đoàn
+        self.fields['hocky'].label_from_instance = lambda obj: obj.maHK 

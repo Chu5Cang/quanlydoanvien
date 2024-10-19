@@ -1,0 +1,76 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Quản lý đoàn viên{% endblock  %}
+
+{% block content %}
+    <h1 class="list-header-name">QUẢN LÝ ĐOÀN PHÍ</h1>
+    <div class="gid-form-search-im-ex">
+        <div>
+            <form method="get" class="doanphi-form">
+                {% csrf_token %}
+                <div class="form-doanphi-group">
+                    {{ form.maCD.label_tag }}
+                    {{ form.maCD }}
+                </div>
+                <div class="form-doanphi-group">
+                    {{ form.hocky.label_tag }}
+                    {{ form.hocky }}
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Quản lý đoàn phí</button>
+                </div>
+            </form>
+        </div>
+        <div class="ex-im-comtainer">
+            <p style="padding: 5px 7px;">Nhập/Xuất file excel: </p>
+            <a href="#" class="ti-export"></a>
+            <a href="#" class="ti-import"></a>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th width="10%">Mã Đoàn Phí</th>
+                    <th width="25%">Đoàn Viên</th>
+                    <th width="10%">Số Tiền</th>
+                    <th width="5%">Học Kỳ</th>
+                    <th width="5%">Trạng Thái</th>
+                    <th width="5%">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doanphi in doanphis %}
+                <tr>
+                    <td>{{ doanphi.maDP }}</td>
+                    <td>{{ doanphi.maDV.tenDV }}</td>
+                    <td>{{ doanphi.sotien }}</td>
+                    <td>{{ doanphi.hocky.tenHK }}</td>
+                    <td>{{ doanphi.get_trangthai_display }}</td>
+                    <td>
+                        <div style="display: grid; grid-template-columns: auto auto;">
+                            <div>
+                               <!-- Nút Sửa Dang test-->
+                                <a href="#">
+                                <button class="btn btn-primary"><p class="ti-write"></p></button>
+                                </a> 
+                            </div>
+                            <div>
+                                <!-- Nút Xóa -->
+                                <button class="btn btn-danger" onclick="#"><p class="ti-trash"></p></button>
+                            </div>
+                            
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Không có dữ liệu phù hợp.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+    
+{% endblock  %}

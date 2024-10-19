@@ -141,6 +141,7 @@ button{
     gap: 5px;
 }
 .ti-export{
+    height: 30px;
     padding: 5px 7px;
     border: 1px solid gray;
     color: #28a745;
@@ -151,6 +152,7 @@ button{
     color: #218838;
 }
 .ti-import{
+    height: 30px;
     padding: 5px 7px;
     border: 1px solid gray;
     color: #007bff;

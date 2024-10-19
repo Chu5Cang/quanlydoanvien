@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'qldv',
         'USER': 'root',
-        'PASSWORD': 'tin123123',
+        'PASSWORD': '123579',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
