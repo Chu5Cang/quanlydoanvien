@@ -1,0 +1,49 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Thêm Đoàn Phí{% endblock  %}
+
+{% block content %}
+    <h2 style="padding: 20px;">THÊM ĐOÀN PHÍ</h2>
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
+    <form class="add-doanphi-form" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="chi_doan">Chi Đoàn:</label>
+            {{ form.maCD }}
+        </div>
+        <label for="hoc_ky">Học Kỳ:</label>  
+        <div class="form-group hoc-ky-group">
+            <div>
+                {{ form.hocky }}
+            </div>
+            <div>
+                <a href="{% url 'add_hocky' %}" class="button-add-hocky">
+                    <p class="ti-plus"></p>
+                </a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="so_tien_doanphi">Số Tiền Đoàn Phí:</label>
+            {{ form.sotien}}
+        </div>
+        <!-- Nút thêm -->
+        <div class="button-edit-add-form">
+            <div>
+                <button type="submit" class="btn btn-success">Thêm</button>
+            </div>
+            <div>
+                {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
+                <a href="/doanphi"><button type="button" class="btn btn-cancel">Hủy</button></a>
+            </div>
+        </div>
+    </form>
+{% endblock  %}

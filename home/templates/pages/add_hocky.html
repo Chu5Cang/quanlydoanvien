@@ -1,0 +1,30 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Thêm Học Kỳ{% endblock  %}
+
+{% block content %}
+    <h2 style="padding: 20px;">THÊM HỌC KỲ</h2>
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
+    <form class="add-hocky-form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Nút thêm -->
+        <div class="button-edit-add-form">
+            <div>
+                <button type="submit" class="btn btn-success">Thêm</button>
+            </div>
+            <div>
+                {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
+                <a href="/doanphi"><button type="button" class="btn btn-cancel">Hủy</button></a>
+            </div>
+        </div>
+    </form>
+{% endblock  %}

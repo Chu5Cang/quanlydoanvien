@@ -24,5 +24,8 @@ urlpatterns = [
     path('doanvien/import/', views.import_doanvien, name='import_doanvien'),
     path('doanvien/export/', views.export_doanvien, name='export_doanvien'),
 
+    path('hocky/add/', views.add_hocky, name='add_hocky'),
     path('doanphi/', views.doanphi, name='doanphi'),
+    path('doanphi/add/', views.add_doanphi, name='add_doanphi'),
+    path('doanphi/edit/<str:maDP>', views.edit_doanphi, name='edit_doanphi'),
 ]

@@ -4,6 +4,18 @@
 
 {% block content %}
     <h1 class="list-header-name">QUẢN LÝ ĐOÀN PHÍ</h1>
+    <a class="button-add" href="{% url 'add_doanphi' %}">
+        <button><i class="ti-plus"></i> Thêm mới</button>
+    </a>
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
     <div class="gid-form-search-im-ex">
         <div>
             <form method="get" class="doanphi-form">
@@ -20,11 +32,6 @@
                     <button type="submit" class="btn btn-success">Quản lý đoàn phí</button>
                 </div>
             </form>
-        </div>
-        <div class="ex-im-comtainer">
-            <p style="padding: 5px 7px;">Nhập/Xuất file excel: </p>
-            <a href="#" class="ti-export"></a>
-            <a href="#" class="ti-import"></a>
         </div>
     </div>
     
@@ -49,18 +56,13 @@
                     <td>{{ doanphi.hocky.tenHK }}</td>
                     <td>{{ doanphi.get_trangthai_display }}</td>
                     <td>
-                        <div style="display: grid; grid-template-columns: auto auto;">
+                        <div>
                             <div>
                                <!-- Nút Sửa Dang test-->
-                                <a href="#">
-                                <button class="btn btn-primary"><p class="ti-write"></p></button>
-                                </a> 
-                            </div>
-                            <div>
-                                <!-- Nút Xóa -->
-                                <button class="btn btn-danger" onclick="#"><p class="ti-trash"></p></button>
-                            </div>
-                            
+                                <a href="{% url 'edit_doanphi' doanphi.maDP %}">
+                                    <button class="btn btn-primary"><p class="ti-write"></p></button>
+                                </a>
+                            </div>                           
                         </div>
                     </td>
                 </tr>
@@ -72,5 +74,16 @@
             </tbody>
         </table>  
     </div>
-    
+
+    <div id="confirmDeleteModalDoanPhi" class="modal">
+        <div class="confirm-box">
+            <h3>Bạn có chắc chắn muốn xóa  không?</h3>
+            <p>Hành động này sẽ không thể hoàn tác.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Xác nhận</button>
+                <button type="button" class="btn btn-cancel" onclick="closeModalChiDoan('confirmDeleteModalDoanPhi')">Hủy</button>
+            </form>
+        </div>
+    </div>
 {% endblock  %}

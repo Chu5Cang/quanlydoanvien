@@ -1,0 +1,21 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa thông tin Đoàn phí{% endblock %}
+
+{% block content %}
+    <h2 style="padding: 20px;">SỬA THÔNG TIN ĐOÀN PHÍ</h2>
+    <form class="edit-doanphi-form" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <!-- Nút thêm -->
+        <div class="button-edit-add-form">
+            <div>
+                <button type="submit" class="btn btn-success">Thêm</button>
+            </div>
+            <div>
+                {% comment %} thêm nút hủy cho quay lại trang {% endcomment %}
+                <a href="/doanphi"><button type="button" class="btn btn-cancel">Hủy</button></a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

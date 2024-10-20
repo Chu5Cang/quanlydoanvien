@@ -5,7 +5,7 @@ from django.contrib import messages
 #  Sử dụng Q objects từ Django để kết hợp nhiều điều kiện tìm kiếm.
 from django.db.models import Q
 from .models import Doankhoa, Chidoan, Doanvien, Chucvu, Doanphi, Hocky
-from .forms import DoankhoaForm, ChidoanForm, DoanvienForm, DoanphiForm, DoanphiFilterForm
+from .forms import DoankhoaForm, ChidoanForm, DoanvienForm, DoanphiForm, DoanphiFilterForm, ThemDoanphiForm, ThemHockyForm
 # goi thu vien pandas xay dung chuc nang import/export 
 import pandas
 import openpyxl
@@ -472,6 +472,20 @@ def export_doanvien(request):
     wb.save(response)
     return response
 
+def add_hocky(request):
+    if request.method == 'POST':
+        form = ThemHockyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Thêm học kỳ thành công')
+            return redirect('add_doanphi')
+        else:
+            messages.error(request,'Thêm học kỳ thất bại.')
+            return redirect('add_hocky')
+    else:
+        form = ThemHockyForm()
+    return render(request, 'pages/add_hocky.html', {'form': form})
+
 def doanphi(request):
     doanphis = Doanphi.objects.all()  # Bắt đầu với tất cả đoàn phí
     form = DoanphiFilterForm(request.GET)  # Lấy dữ liệu từ form filter
@@ -486,3 +500,57 @@ def doanphi(request):
             doanphis = doanphis.filter(hocky=hocky)  # Lọc theo Học Kỳ
 
     return render(request, 'pages/doanphi.html', {'doanphis': doanphis, 'form': form})
+
+def add_doanphi(request):
+    if request.method == 'POST':
+        form = ThemDoanphiForm(request.POST)
+        if form.is_valid():
+            maCD = form.cleaned_data['maCD']
+            sotien = form.cleaned_data['sotien']
+            hocky = form.cleaned_data['hocky']
+
+            # Lấy tất cả đoàn viên thuộc chi đoàn được chọn
+            doanviens = Doanvien.objects.filter(maCD=maCD)
+
+            # Lấy mã Đoàn Phí cuối cùng để bắt đầu mã mới
+            last_dp = Doanphi.objects.order_by('maDP').last()
+            if last_dp:
+                last_dp_id = int(last_dp.maDP[2:])  # Bỏ phần "DP" và lấy số
+            else:
+                last_dp_id = 0
+
+            # Duyệt qua từng đoàn viên và thêm đoàn phí
+            for doanvien in doanviens:
+                last_dp_id += 1
+                maDP = f'DP{last_dp_id:03d}'  # Tạo mã đoàn phí mới theo định dạng DPxxx
+
+                # Tạo bản ghi Đoàn Phí cho từng đoàn viên
+                Doanphi.objects.create(
+                    maDP=maDP,
+                    maDV=doanvien,
+                    sotien=sotien,
+                    hocky=hocky,
+                    trangthai=0  # Giả sử trạng thái là đã đóng
+                )
+
+            messages.success(request, 'Thêm đoàn phí thành công cho tất cả đoàn viên trong chi đoàn!')
+            return redirect('doanphi')  # Chuyển hướng đến trang danh sách đoàn phí
+    else:
+        form = ThemDoanphiForm()
+
+    return render(request, 'pages/add_doanphi.html', {'form': form})
+
+def edit_doanphi(request, maDP):
+
+    doan_phi = Doanphi.objects.get(maDP=maDP)
+
+    if request.method == 'POST':
+        form = DoanphiForm(request.POST, instance=doan_phi)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Đoàn phí đã được cập nhật thành công.')
+            return redirect('doanphi')
+    else:
+        form = DoanphiForm(instance=doan_phi)
+
+    return render(request, 'pages/edit_doanphi.html', {'form': form})
